@@ -40,7 +40,7 @@ function SignupForm() {
         const errors = new Map();
 
         if (!isValidEmail(email)) {
-            errors.set('email', 'The email field is required');
+            errors.set('email', 'It must be a valid email address');
         }
 
         if (!password) {
@@ -85,7 +85,7 @@ function SignupForm() {
 
     return (
         <>
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmit} noValidate>
                 <Typography mb="16px" textAlign="center">
                     Welcome to URL Shortener
                 </Typography>
@@ -98,6 +98,15 @@ function SignupForm() {
                     value={email}
                     error={errors.has('email')}
                     helperText={errors.get('email')}
+                    slotProps={{
+                        htmlInput: {
+                            'data-testid': 'email-input',
+                        },
+                        formHelperText: {
+                            // @ts-expect-error data-testid for Jest tests
+                            'data-testid': 'email-error',
+                        },
+                    }}
                 />
                 <FormControl
                     fullWidth
@@ -129,14 +138,18 @@ function SignupForm() {
                         label="Password"
                         onChange={(event) => setPassword(event.target.value)}
                         value={password}
+                        data-testid="password-input"
                     />
-                    <FormHelperText>{errors.get('password')}</FormHelperText>
+                    <FormHelperText data-testid="password-error">
+                        {errors.get('password')}
+                    </FormHelperText>
                 </FormControl>
                 <Button
                     fullWidth
                     startIcon={<Login />}
                     type="submit"
                     variant="contained"
+                    data-testid="submit-button"
                 >
                     Sign Up
                 </Button>

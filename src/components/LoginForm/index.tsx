@@ -88,6 +88,11 @@ function LoginForm() {
                     type="email"
                     onChange={(event) => setEmail(event.target.value)}
                     value={email}
+                    slotProps={{
+                        htmlInput: {
+                            'data-testid': 'email-input',
+                        },
+                    }}
                 />
                 <FormControl fullWidth sx={{ mb: '16px' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">
@@ -111,6 +116,7 @@ function LoginForm() {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        data-testid="password-input"
                         label="Password"
                         onChange={(event) => setPassword(event.target.value)}
                         value={password}
@@ -121,6 +127,7 @@ function LoginForm() {
                     startIcon={<Login />}
                     type="submit"
                     variant="contained"
+                    data-testid="submit-button"
                 >
                     Sign In
                 </Button>

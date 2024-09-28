@@ -14,7 +14,12 @@ function Snackbar({
     variant = 'success',
 }: SnackbarProps) {
     return (
-        <MuiSnackbar open={open} autoHideDuration={6000} onClose={onClose}>
+        <MuiSnackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={onClose}
+            data-testid="snackbar"
+        >
             <Alert
                 onClose={onClose}
                 severity={variant}

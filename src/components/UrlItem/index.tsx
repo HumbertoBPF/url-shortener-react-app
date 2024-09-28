@@ -7,6 +7,7 @@ import {
     Typography,
 } from '@mui/material';
 import { deleteUrl } from 'api/urlShortener';
+import ConfirmDeletionDialog from 'components/ConfirmDeletionDialog';
 import Snackbar from 'components/Snackbar';
 import { setUser } from 'features/userSlice';
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -25,6 +26,7 @@ function UrlItem({ urlRecord }: UrlItemProps) {
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [openPopover, setOpenPopover] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
 
     const [message, setMessage] = useState<ISnackbarMessage>({
         open: false,
@@ -71,12 +73,21 @@ function UrlItem({ urlRecord }: UrlItemProps) {
             <Card
                 sx={{ margin: '8px 0px 0px 0px', p: '8px' }}
                 variant="outlined"
+                data-testid={`url-item-${urlRecord.id}`}
             >
                 <CardContent>
-                    <Typography fontWeight="bold" variant="body1">
+                    <Typography
+                        fontWeight="bold"
+                        variant="body1"
+                        data-testid="short-url"
+                    >
                         {shortUrl}
                     </Typography>
-                    <Typography color="success" variant="body2">
+                    <Typography
+                        color="success"
+                        variant="body2"
+                        data-testid="long-url"
+                    >
                         {urlRecord.long_url}
                     </Typography>
                 </CardContent>
@@ -86,6 +97,7 @@ function UrlItem({ urlRecord }: UrlItemProps) {
                         onClick={() => window.open(shortUrl, '_blank')?.focus()}
                         size="small"
                         variant="contained"
+                        data-testid="visit-url-button"
                     >
                         Visit URL
                     </Button>
@@ -94,6 +106,7 @@ function UrlItem({ urlRecord }: UrlItemProps) {
                         onClick={handleCopyUrl}
                         size="small"
                         variant="contained"
+                        data-testid="copy-button"
                     >
                         Copy
                     </Button>
@@ -118,13 +131,19 @@ function UrlItem({ urlRecord }: UrlItemProps) {
                     <Button
                         color="error"
                         size="small"
-                        onClick={handleDeleteUrl}
+                        onClick={() => setOpenDialog(true)}
                         variant="contained"
+                        data-testid="delete-button"
                     >
                         Delete
                     </Button>
                 </CardActions>
             </Card>
+            <ConfirmDeletionDialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+                onConfirm={handleDeleteUrl}
+            />
             <Snackbar
                 message={message.text}
                 open={message.open}

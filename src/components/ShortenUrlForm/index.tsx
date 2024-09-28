@@ -33,7 +33,7 @@ function ShortenUrlForm() {
         const errors = new Map();
 
         if (!longUrl.trim()) {
-            errors.set('longUrl', 'The URL field is required.');
+            errors.set('longUrl', 'The URL field is required');
         }
 
         setErrors(errors);
@@ -74,6 +74,7 @@ function ShortenUrlForm() {
                     borderRadius: '8px',
                     p: '16px',
                 }}
+                noValidate
             >
                 <Typography mb="8px">Shorten a long URL</Typography>
                 <TextField
@@ -83,11 +84,27 @@ function ShortenUrlForm() {
                     value={longUrl}
                     error={errors.has('longUrl')}
                     helperText={errors.get('longUrl')}
+                    slotProps={{
+                        htmlInput: {
+                            'data-testid': 'long-url-input',
+                        },
+                        formHelperText: {
+                            // @ts-expect-error data-testid for tests
+                            'data-testid': 'long-url-error',
+                        },
+                    }}
                 />
                 {shortUrl !== '' ? (
                     <>
                         <Typography my="8px">Tiny URL</Typography>
-                        <TextField disabled fullWidth value={shortUrl} />
+                        <TextField
+                            disabled
+                            fullWidth
+                            value={shortUrl}
+                            slotProps={{
+                                htmlInput: { 'data-testid': 'short-url-input' },
+                            }}
+                        />
                         <Box sx={{ mt: '16px' }}>
                             <Button
                                 color="info"
@@ -95,6 +112,7 @@ function ShortenUrlForm() {
                                     window.open(shortUrl, '_blank')?.focus()
                                 }
                                 variant="contained"
+                                data-testid="visit-url-button"
                             >
                                 Visit URL
                             </Button>
@@ -105,6 +123,7 @@ function ShortenUrlForm() {
                                     navigator.clipboard.writeText(shortUrl)
                                 }
                                 variant="contained"
+                                data-testid="copy-button"
                             >
                                 Copy
                             </Button>
@@ -116,6 +135,7 @@ function ShortenUrlForm() {
                             color="success"
                             onClick={resetForm}
                             variant="contained"
+                            data-testid="shorten-another-button"
                         >
                             Shorten another
                         </Button>
@@ -128,6 +148,7 @@ function ShortenUrlForm() {
                             sx={{ mt: '32px' }}
                             type="submit"
                             variant="contained"
+                            data-testid="submit-button"
                         >
                             Shorten URL
                         </Button>

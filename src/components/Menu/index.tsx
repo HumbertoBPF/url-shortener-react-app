@@ -22,6 +22,8 @@ import { clearUser, setUser } from 'features/userSlice';
 import Cookies from 'js-cookie';
 import { getUser } from 'api/urlShortener';
 import MyUrls from 'components/MyUrls';
+import ISnackbarMessage from 'interfaces/ISnackbarMessage';
+import Snackbar from 'components/Snackbar';
 
 enum DrawerContentType {
     DEFAULT = 'default',
@@ -40,6 +42,12 @@ function Menu() {
     const [drawerContentType, setDrawerContentType] =
         useState<DrawerContentType>(DrawerContentType.DEFAULT);
 
+    const [message, setMessage] = useState<ISnackbarMessage>({
+        open: false,
+        text: '',
+        variant: 'success',
+    });
+
     const isAuth = user.email !== '';
 
     useEffect(() => {
@@ -51,7 +59,13 @@ function Menu() {
                     const { data } = response;
                     dispatch(setUser(data));
                 })
-                .catch(() => {});
+                .catch(() => {
+                    setMessage({
+                        open: true,
+                        text: 'Error when fetching user data',
+                        variant: 'error',
+                    });
+                });
         }
     }, [dispatch, isAuth]);
 
@@ -133,6 +147,7 @@ function Menu() {
                                         );
                                         handleDrawerToggle();
                                     }}
+                                    data-testid="my-urls-menu-item"
                                 >
                                     <ListItemText primary="My URLs" />
                                 </ListItemButton>
@@ -160,6 +175,7 @@ function Menu() {
                                         );
                                         handleDrawerToggle();
                                     }}
+                                    data-testid="signup-menu-item"
                                 >
                                     <ListItemText primary="Sign Up" />
                                 </ListItemButton>
@@ -173,6 +189,7 @@ function Menu() {
                                         );
                                         handleDrawerToggle();
                                     }}
+                                    data-testid="signin-menu-item"
                                 >
                                     <ListItemText primary="Sign In" />
                                 </ListItemButton>
@@ -221,6 +238,7 @@ function Menu() {
                                         handleDrawerToggle();
                                     }}
                                     color="inherit"
+                                    data-testid="my-urls-menu-button"
                                 >
                                     My URLs
                                 </Button>
@@ -244,6 +262,7 @@ function Menu() {
                                         handleDrawerToggle();
                                     }}
                                     color="inherit"
+                                    data-testid="signup-menu-button"
                                 >
                                     Sign Up
                                 </Button>
@@ -255,6 +274,7 @@ function Menu() {
                                         handleDrawerToggle();
                                     }}
                                     color="inherit"
+                                    data-testid="signin-menu-button"
                                 >
                                     Sign In
                                 </Button>
@@ -294,6 +314,17 @@ function Menu() {
             >
                 <Toolbar />
                 <Outlet />
+                <Snackbar
+                    message={message.text}
+                    open={message.open}
+                    onClose={() =>
+                        setMessage({
+                            ...message,
+                            open: false,
+                        })
+                    }
+                    variant={message.variant}
+                />
             </Box>
         </Box>
     );
