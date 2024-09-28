@@ -2,6 +2,7 @@ import { fakerEN_US as faker } from '@faker-js/faker';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getUser, login } from 'api/urlShortener';
+import { AxiosError } from 'axios';
 import Menu from 'components/Menu';
 import Index from 'pages/Index';
 import { Route } from 'react-router-dom';
@@ -70,9 +71,7 @@ it('should submit login form', async () => {
 
 describe('error handling', () => {
     it('should display snackbar when /login returns an error', async () => {
-        (login as jest.Mock).mockImplementation(() => {
-            return Promise.reject(new Error());
-        });
+        (login as jest.Mock).mockRejectedValue(new AxiosError());
 
         await act(async () => {
             renderWithProviders(routes, {
@@ -114,9 +113,7 @@ describe('error handling', () => {
             })
         );
 
-        (getUser as jest.Mock).mockImplementation(() => {
-            return Promise.reject(new Error());
-        });
+        (getUser as jest.Mock).mockRejectedValue(new AxiosError());
 
         await act(async () => {
             renderWithProviders(routes, {

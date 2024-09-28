@@ -46,6 +46,7 @@ function LoginForm({ onSuccess }: LoginFormProps) {
             .then((response) => {
                 const { data } = response;
                 dispatch(setUser(data));
+                onSuccess();
                 navigate('/home');
             })
             .catch(() => {
@@ -69,7 +70,6 @@ function LoginForm({ onSuccess }: LoginFormProps) {
                 const { token } = data;
                 Cookies.set('token', token);
                 fetchUser();
-                onSuccess();
             })
             .catch(() => {
                 setMessage({
