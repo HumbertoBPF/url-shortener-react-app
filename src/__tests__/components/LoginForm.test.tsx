@@ -5,7 +5,8 @@ import { getUser, login } from 'api/urlShortener';
 import Menu from 'components/Menu';
 import Index from 'pages/Index';
 import { Route } from 'react-router-dom';
-import { mockUser, renderWithProviders } from 'utils/tests';
+import { mockUser } from 'utils/mocks';
+import { renderWithProviders } from 'utils/tests';
 
 const email = faker.internet.email();
 const password = 'Str0ng-P@ssw0rd';

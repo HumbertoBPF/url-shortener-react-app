@@ -7,7 +7,8 @@ import Cookies from 'js-cookie';
 import Home from 'pages/Home';
 import { Route } from 'react-router-dom';
 import { assertUrlItem } from 'utils/assertions';
-import { mockUser, renderWithProviders } from 'utils/tests';
+import { mockUser } from 'utils/mocks';
+import { renderWithProviders } from 'utils/tests';
 
 const user = mockUser();
 

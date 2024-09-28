@@ -86,7 +86,12 @@ function Menu() {
         if (drawerContentType === DrawerContentType.SIGNIN) {
             return (
                 <Box padding="16px 8px 8px 8px">
-                    <LoginForm />
+                    <LoginForm
+                        onSuccess={() => {
+                            setDrawerOpen(false);
+                            setDrawerContentType(DrawerContentType.DEFAULT);
+                        }}
+                    />
                     <Box display="flex" justifyContent="center" mt="8px">
                         <Typography display="inline">
                             Don&apos;t have an account?

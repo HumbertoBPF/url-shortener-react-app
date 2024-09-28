@@ -6,7 +6,8 @@ import Menu from 'components/Menu';
 import Cookies from 'js-cookie';
 import Home from 'pages/Home';
 import { Route } from 'react-router-dom';
-import { mockUrl, mockUser, renderWithProviders } from 'utils/tests';
+import { mockUrl, mockUser } from 'utils/mocks';
+import { renderWithProviders } from 'utils/tests';
 
 const user = mockUser();
 const url = mockUrl();

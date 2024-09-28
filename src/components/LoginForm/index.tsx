@@ -19,7 +19,11 @@ import { useNavigate } from 'react-router-dom';
 import Snackbar from 'components/Snackbar';
 import ISnackbarMessage from 'interfaces/ISnackbarMessage';
 
-function LoginForm() {
+interface LoginFormProps {
+    onSuccess: () => void;
+}
+
+function LoginForm({ onSuccess }: LoginFormProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -65,6 +69,7 @@ function LoginForm() {
                 const { token } = data;
                 Cookies.set('token', token);
                 fetchUser();
+                onSuccess();
             })
             .catch(() => {
                 setMessage({
