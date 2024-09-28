@@ -1,0 +1,15 @@
+name: Integration Tests
+run-name: ${{ github.actor }} is running integration tests
+on: workflow_dispatch
+jobs:
+    integration-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Install dependencies, create .env, and run Cypress tests
+              run: |
+                  npm install
+                  echo REACT_APP_MUSICBOXD_API=${{ secrets.REACT_APP_MUSICBOXD_API }} >> .env
+                  echo REACT_APP_WS_API=${{ secrets.REACT_APP_WS_API }} >> .env
+                  npm start &
+                  npx cypress run

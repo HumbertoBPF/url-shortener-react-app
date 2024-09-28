@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import ProjectPresentation from 'components/ProjectPresentation';
 import ShortenUrlForm from 'components/ShortenUrlForm';
 import Cookies from 'js-cookie';
@@ -17,10 +17,14 @@ function Home() {
     }, [navigate]);
 
     return (
-        <Box display="flex">
-            <ShortenUrlForm />
-            <ProjectPresentation />
-        </Box>
+        <Grid2 container>
+            <Grid2 size={{ xs: 12, sm: 6, md: 4 }}>
+                <ShortenUrlForm />
+            </Grid2>
+            <Grid2 size={{ xs: 12, sm: 6, md: 4 }}>
+                <ProjectPresentation />
+            </Grid2>
+        </Grid2>
     );
 }
 
