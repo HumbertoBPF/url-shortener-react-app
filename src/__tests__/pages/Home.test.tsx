@@ -58,7 +58,7 @@ it('should shorten URL', async () => {
     const shortUrlInput = screen.getByTestId('short-url-input');
     expect(shortUrlInput).toBeInTheDocument();
     expect(shortUrlInput).toHaveValue(
-        `${process.env.REACT_APP_MUSICBOXD_API}/redirect/${url.short_url}`
+        `${process.env.REACT_APP_URL_SHORTENER_API}/redirect/${url.short_url}`
     );
 
     const visitUrlButton = screen.getByTestId('visit-url-button');

@@ -46,7 +46,7 @@ function ShortenUrlForm() {
             .then((response) => {
                 const { data } = response;
                 setShortUrl(
-                    `${process.env.REACT_APP_MUSICBOXD_API}/redirect/${data.short_url}`
+                    `${process.env.REACT_APP_URL_SHORTENER_API}/redirect/${data.short_url}`
                 );
                 dispatch(
                     setUser({

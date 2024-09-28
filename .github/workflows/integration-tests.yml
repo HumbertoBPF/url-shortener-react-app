@@ -9,7 +9,6 @@ jobs:
             - name: Install dependencies, create .env, and run Cypress tests
               run: |
                   npm install
-                  echo REACT_APP_MUSICBOXD_API=${{ secrets.REACT_APP_MUSICBOXD_API }} >> .env
-                  echo REACT_APP_WS_API=${{ secrets.REACT_APP_WS_API }} >> .env
+                  echo REACT_APP_URL_SHORTENER_API=${{ secrets.REACT_APP_URL_SHORTENER_API }} >> .env
                   npm start &
                   npx cypress run

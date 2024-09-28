@@ -7,7 +7,7 @@ export function assertUrlItem(url: IUrl) {
     const shortUrl = within(urlRecord).getByTestId('short-url');
     expect(shortUrl).toBeInTheDocument();
     expect(shortUrl).toHaveTextContent(
-        `${process.env.REACT_APP_MUSICBOXD_API}/redirect/${url.short_url}`
+        `${process.env.REACT_APP_URL_SHORTENER_API}/redirect/${url.short_url}`
     );
 
     const longUrl = within(urlRecord).getByTestId('long-url');

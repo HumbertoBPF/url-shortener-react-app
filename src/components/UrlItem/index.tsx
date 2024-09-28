@@ -34,7 +34,7 @@ function UrlItem({ urlRecord }: UrlItemProps) {
         variant: 'success',
     });
 
-    const shortUrl = `${process.env.REACT_APP_MUSICBOXD_API}/redirect/${urlRecord.short_url}`;
+    const shortUrl = `${process.env.REACT_APP_URL_SHORTENER_API}/redirect/${urlRecord.short_url}`;
 
     const handleCopyUrl = (event: MouseEvent<HTMLButtonElement>) => {
         navigator.clipboard.writeText(shortUrl);
